@@ -26,7 +26,8 @@ app.get("/",function (req,res) {
 
 //role
 app.post("/roles",roleController.addRole)
-
+app.get("/roles",roleController.getAllRoles)
+app.delete("/roles/:roleId",roleController.deleteRole)
 
 //urls
 app.get("/login",sessionController.login)
