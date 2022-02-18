@@ -43,3 +43,16 @@ module.exports.deleteRole = function(req,res){
         }
     })
 }
+
+module.exports.updateRole = function (req,res) {
+    let roleId = req.body.roleId
+    let roleName = req.body.roleName
+
+    RoleModel.updateOne({"_id":roleId},{"roleName":roleName},function(err,sucess){
+        if(err){
+            res.json({msg:"error",status:-1})
+        }else{
+            res.json({msg:"sucess",status:200,data:sucess}) 
+        }
+    })
+}
