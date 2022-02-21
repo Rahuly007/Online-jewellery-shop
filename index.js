@@ -27,7 +27,7 @@ app.get("/", function (req, res) {
 
 
 
-//urls
+//urls   session
 app.get("/login", sessionController.login)
 app.get("/signup", sessionController.signup)
 app.post("/saveuser", sessionController.saveuser)
