@@ -1,3 +1,4 @@
+const req = require("express/lib/request")
 const fs=require("fs")
 
 function login(req,res){
@@ -19,6 +20,8 @@ function saveuser(req,res){
         data:req.body
     })
 }
+
+
 module.exports.login = login
 module.exports.signup = signup
 module.exports.saveuser = saveuser

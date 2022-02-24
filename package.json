@@ -9,8 +9,10 @@
   "author": "Rahul Yadav",
   "license": "ISC",
   "dependencies": {
-    "express": "^4.17.2",
+    "bcrypt": "^5.0.1",
+    "express": "^4.17.3",
     "mongoose": "^6.2.1",
+    "node": "^17.4.0",
     "node.js": "^0.0.1-security",
     "nodemon": "^2.0.15"
   }

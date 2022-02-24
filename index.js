@@ -28,9 +28,9 @@ app.get("/", function (req, res) {
 
 
 //urls   session
-app.get("/login", sessionController.login)
-app.get("/signup", sessionController.signup)
-app.post("/saveuser", sessionController.saveuser)
+//app.get("/login", sessionController.login)
+//app.get("/signup", sessionController.signup)
+//app.post("/saveuser", sessionController.saveuser)
 
 //role
 app.post("/roles", roleController.addRole)
@@ -38,12 +38,13 @@ app.get("/roles", roleController.getAllRoles)
 app.delete("/roles/:roleId", roleController.deleteRole)
 app.put("/roles", roleController.updateRole)
 
+
 //user
 app.post("/users", userController.addUser)
 app.get("/users",userController.getAllUser)
 app.delete("/users",roleController.deleteRole)
 app.put("/users",userController.updateUser)
-
+app.post("/login",userController.login)
 
 //server
 app.listen(3000, function () {

@@ -1,7 +1,7 @@
 const RoleModel = require("../model/role-model")
 
 
-
+//insert
 module.exports.addRole = function (req, res) {
     console.log(req.body.roleName)
     
@@ -56,3 +56,9 @@ module.exports.updateRole = function (req,res) {
         }
     })
 }
+
+
+
+
+
+
