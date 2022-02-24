@@ -65,7 +65,7 @@ module.exports.deleteProduct = function (req, res) {
 }
 //update
 
-module.exports.updateUser = function (req, res) {
+module.exports.updateProduct = function (req, res) {
     let productId = req.body.productId
     let ProductName = req.body.ProductName
 

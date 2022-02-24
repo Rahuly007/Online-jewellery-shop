@@ -104,7 +104,7 @@ app.delete("/customerAddresses/:customerAddressId", customerAddress.deleteCustom
 //product
 app.post("/products", productController.addProduct)
 app.get("/products", productController.getAllProduct)
-app.put("/products", productController.updateUser)
+app.put("/products", productController.updateProduct)
 app.delete("/products/:productId", productController.deleteProduct)
 
 

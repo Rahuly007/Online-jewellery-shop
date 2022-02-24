@@ -4,7 +4,7 @@ const stateModel = require("../model/state-model")
 
 module.exports.addState = function (req, res) {
     let stateName = req.body.stateName
-    
+
 
     let state = new stateModel({
         stateName: stateName, 
