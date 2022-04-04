@@ -47,7 +47,7 @@ module.exports.updateStatus = function (req, res) {
     let statusId = req.params.statusId
     let status = req.body.status
 
-    StatusModel.updateOne({ _id: statusId }, { status: status }, function (err, data) {
+    StatusModel.updateOne({ _id: statusId }, { $set: { status: status } }, function (err, data) {
         if (err) {
             res.json({ msg: "Something went wrong!!!", status: -1, data: err })
         } else {

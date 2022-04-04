@@ -59,7 +59,7 @@ module.exports.updateOrder = function (req, res) {
     let status = req.body.status;
     let address = req.body.address;
 
-    OrderController.updateOne({ _id: OrderId }, { user: user, total: total, status: status, address: address }, function (err, data) {
+    OrderController.updateOne({ _id: OrderId }, { $set: { user: user, total: total, status: status, address: address } }, function (err, data) {
         if (err) {
             res.json({ msg: "Something went wrong!!!", status: -1, data: err })
         } else {

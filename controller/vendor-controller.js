@@ -79,7 +79,7 @@ module.exports.updatevendorDetails = function (req, res) {
     let city = req.body.city
 
 
-    vendorModel.updateOne({ _id: vendorId }, { vendorName: vendorName, contactNumber: contactNumber, address: address, email: email, pincode: pincode, user: user, state: state, city: city }, function (err, data) {
+    vendorModel.updateOne({ _id: vendorId }, { $set: { vendorName: vendorName, contactNumber: contactNumber, address: address, email: email, pincode: pincode, user: user, state: state, city: city } }, function (err, data) {
         if (err) {
             res.json({ msg: "Something went wrong!!!", status: -1, data: err })
         } else {

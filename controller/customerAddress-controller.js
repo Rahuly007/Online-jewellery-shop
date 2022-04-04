@@ -69,7 +69,7 @@ module.exports.updateCustomerAddress = function (req, res) {
     let customerAddressId = req.body.customerAddressId
     let isDefault = req.body.isDefault
 
-    customerAddressModel.updateOne({ _id: customerAddressId }, { isDefault: isDefault }, function (err, data) {
+    customerAddressModel.updateOne({ _id: customerAddressId }, { $set: { isDefault: isDefault } }, function (err, data) {
         if (err) {
             console.log(err);
             //sendMailtoDev(err)

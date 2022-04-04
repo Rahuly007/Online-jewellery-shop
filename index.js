@@ -1,6 +1,7 @@
 const express = require("express");
 const mongoose = require("mongoose")
 
+
 const sessionController = require("./controller/session-controller")
 const roleController = require("./controller/role-controller")
 const userController = require("./controller/user-controller")
@@ -24,6 +25,13 @@ const customerAddressModel = require("./model/cutomerAddress-model");
 
 //midleware
 const app = express()
+//cors policy
+app.use(function(req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header({'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE'});
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    next();
+  });
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 
@@ -77,6 +85,7 @@ app.delete("/brands/:brandId", brandController.deleteBrands)
 //category
 app.post("/categories", categoryController.addCategory)
 app.get("/categories", categoryController.getAllCategory)
+app.get("/categories/:id", categoryController.findOneCategory)
 app.put("/categories", categoryController.updateCategory)
 app.delete("/categories/:categoryId", categoryController.deleteCategory)
 
@@ -150,7 +159,11 @@ app.delete('/orderDetails/:orderId', orderDetailController.deleteorderDetail);
 app.put('/orderDetails', orderDetailController.updateorderDetails);
 
 
-//server
+//server  
 app.listen(3000, function () {
     console.log("server is running at 3000")
 })
+
+//how to run
+//node index.js
+//nodemon index.js

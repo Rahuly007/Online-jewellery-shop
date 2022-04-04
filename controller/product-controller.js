@@ -69,7 +69,7 @@ module.exports.updateProduct = function (req, res) {
     let productId = req.body.productId
     let ProductName = req.body.ProductName
 
-    ProductModel.updateOne({ _id: productId }, { ProductName: ProductName }, function (err, data) {
+    ProductModel.updateOne({ _id: productId }, { $set: { ProductName: ProductName } }, function (err, data) {
         if (err) {
             console.log(err);
             //sendMailtoDev(err)

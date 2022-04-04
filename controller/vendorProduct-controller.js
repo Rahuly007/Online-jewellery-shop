@@ -65,7 +65,7 @@ module.exports.updatevendorProduct = function (req, res) {
     let qty = req.body.qty;
     let price = req.body.price;
 
-    vendorProductController.updateOne({ _id: vendorProductId }, { product: product, vendor: vendor, qty: qty, price: price }, function (err, data) {
+    vendorProductController.updateOne({ _id: vendorProductId }, { $set: { product: product, vendor: vendor, qty: qty, price: price } }, function (err, data) {
         if (err) {
             res.json({ msg: "Something went wrong!!!", status: -1, data: err })
         } else {

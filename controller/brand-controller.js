@@ -49,7 +49,7 @@ module.exports.updateBrand = function (req, res) {
     let brandId = req.body.brandId
     let brandName = req.body.brandName
 
-    BrandModel.updateOne({ _id: brandId }, { brandName : brandName},function (err,sucess) {
+    BrandModel.updateOne({ _id: brandId }, { $set: { brandName: brandName } }, function (err, sucess) {
         if (err) {
             console.log(err)
             res.json({ msg: "error while updating brands", status: -1, data: res.err })

@@ -34,6 +34,18 @@ module.exports.getAllCategory = function (req, res) {
     })
 }
 
+module.exports.findOneCategory = function (req, res) {
+    let id = req.params.id
+    CategoryModel.findOne({ _id: id }, function (err, sucess) {
+        if (err) {
+            console.log(err);
+            //sendMailtoDev(err)
+            res.json({ msg: "error", status: -1, data: res.err })
+        } else {
+            res.json({ msg: "category fetched......", status: 200, data: sucess })
+        }
+    })
+}
 
 module.exports.deleteCategory = function (req, res) {
     let categoryId = req.params.categoryId
@@ -52,9 +64,10 @@ module.exports.deleteCategory = function (req, res) {
 
 module.exports.updateCategory = function (req, res) {
     let categoryId = req.body.categoryId
+    let categoryName = req.body.categoryName
     let isActive = req.body.isActive
 
-    CategoryModel.updateOne({ _id: categoryId }, { isActive: isActive }, function (err, sucess) {
+    CategoryModel.updateOne({ _id: categoryId }, { $set: { categoryName: categoryName,isActive: isActive } }, function (err, sucess) {
         if (err) {
             console.log(err);
             //sendMailtoDev(err)
@@ -64,3 +77,4 @@ module.exports.updateCategory = function (req, res) {
         }
     })
 }
+

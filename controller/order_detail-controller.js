@@ -60,7 +60,7 @@ module.exports.updateorderDetails = function (req, res) {
     let vendorProduct = req.body.vendorProduct;
 
 
-    OrderDetailModel.updateOne({ _id: orderId }, { user: user, qty: qty, price: price, vendorProduct: vendorProduct }, function (err, data) {
+    OrderDetailModel.updateOne({ _id: orderId }, { $set: { user: user, qty: qty, price: price, vendorProduct: vendorProduct } }, function (err, data) {
         if (err) {
             res.json({ msg: "Something went wrong!!!", status: -1, data: err })
         } else {

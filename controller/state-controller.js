@@ -7,7 +7,7 @@ module.exports.addState = function (req, res) {
 
 
     let state = new stateModel({
-        stateName: stateName, 
+        stateName: stateName,
     })
 
     state.save(function (err, sucess) {
@@ -59,7 +59,7 @@ module.exports.updateState = function (req, res) {
     let stateId = req.body.stateId
     let stateName = req.body.stateName
 
-    stateModel.updateOne({ _id: stateId }, { stateName: stateName }, function (err, data) {
+    stateModel.updateOne({ _id: stateId }, { $set: { stateName: stateName } }, function (err, data) {
         if (err) {
             console.log(err);
             //sendMailtoDev(err)

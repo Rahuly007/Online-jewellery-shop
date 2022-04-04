@@ -63,7 +63,7 @@ module.exports.updateSubcategory = function (req, res) {
     let subCategoryId = req.body.subCategoryId
     let isActive = req.body.isActive
 
-    subCategoryModel.updateOne({ _id: subCategoryId }, { isActive: isActive }, function (err, data) {
+    subCategoryModel.updateOne({ _id: subCategoryId }, { $set: { isActive: isActive } }, function (err, data) {
         if (err) {
             console.log(err);
             //sendMailtoDev(err)

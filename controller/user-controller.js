@@ -70,7 +70,7 @@ module.exports.updateUser = function (req, res) {
     let roleId = req.body.roleId
     let firstName = req.body.firstName
 
-    UserModel.updateOne({ _id: roleId }, { firstName: firstName }, function (err, data) {
+    UserModel.updateOne({ _id: roleId }, { $set: { firstName: firstName } }, function (err, data) {
         if (err) {
             console.log(err);
             //sendMailtoDev(err)
@@ -97,10 +97,10 @@ module.exports.login = function (req, res) {
             }
         }
 
-        if (isCorrect == false){
-            res.json({msg:"invalid credentials",status:-1,data:req.body})
-        }else{
-            res.json({msg:"login sucessfull",status:200,data:data})
+        if (isCorrect == false) {
+            res.json({ msg: "invalid credentials", status: -1, data: req.body })
+        } else {
+            res.json({ msg: "login sucessfull", status: 200, data: data })
         }
     })
 }

@@ -1,4 +1,4 @@
-const cityModel= require("../model/city-model")
+const cityModel = require("../model/city-model")
 
 
 
@@ -7,8 +7,8 @@ module.exports.addCity = function (req, res) {
     let stateId = req.body.stateId
 
     let city = new cityModel({
-        cityName: cityName, 
-        state : stateId
+        cityName: cityName,
+        state: stateId
     })
 
     city.save(function (err, sucess) {
@@ -60,7 +60,7 @@ module.exports.updateCity = function (req, res) {
     let cityId = req.body.cityId
     let cityName = req.body.cityName
 
-    cityModel.updateOne({ _id: cityId }, { cityName: cityName }, function (err, data) {
+    cityModel.updateOne({ _id: cityId }, { $set: { cityName: cityName } }, function (err, data) {
         if (err) {
             console.log(err);
             //sendMailtoDev(err)
