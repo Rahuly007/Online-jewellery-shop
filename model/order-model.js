@@ -3,21 +3,21 @@ const mongoose = require("mongoose")
 const OrderSchema = new mongoose.Schema({
     user: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: "Users"
+        ref: "user"
     },
     total: {
         type: String,
     },
     status: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: "Status"
+        ref: "status"
     },
     address: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: "address"
+        ref: "customerAddress"
     }
 })
 
-const OrderModel = mongoose.model("Order", OrderSchema)
+const OrderModel = mongoose.model("order", OrderSchema)
 
 module.exports = OrderModel

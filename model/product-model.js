@@ -12,10 +12,6 @@ let ProductSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: "category"
     },
-    subCategory: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "subcategory"
-    },
     brand: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "brand"

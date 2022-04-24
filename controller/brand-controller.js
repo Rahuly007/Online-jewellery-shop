@@ -33,6 +33,18 @@ module.exports.getAllBrands = function (req, res) {
     })
 }
 
+module.exports.getOneBrands = function (req, res) {
+    let id = req.params.id
+    BrandModel.findOne({ _id: id }, function (err, sucess) {
+        if (err) {
+            console.log(err);
+            res.json({ msg: "error while finding brands", status: -1, data: res.err })
+        } else {
+            res.json({ msg: "retriving all brands", status: 200, data: sucess })
+        }
+    })
+}
+
 module.exports.deleteBrands = function (req, res) {
     let brandId = req.params.brandId
     BrandModel.deleteOne({ _id: brandId }, function (err, sucess) {

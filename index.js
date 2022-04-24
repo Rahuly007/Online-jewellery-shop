@@ -1,6 +1,8 @@
 const express = require("express");
 const mongoose = require("mongoose")
-
+const cors = require('cors')
+const jwt = require('jsonwebtoken');
+var cookieParser = require('cookie-parser');
 
 const sessionController = require("./controller/session-controller")
 const roleController = require("./controller/role-controller")
@@ -25,16 +27,14 @@ const customerAddressModel = require("./model/cutomerAddress-model");
 
 //midleware
 const app = express()
+
 //cors policy
-app.use(function(req, res, next) {
-    res.header("Access-Control-Allow-Origin", "*");
-    res.header({'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE'});
-    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-    next();
-  });
+app.use(cors(
+{origin:"*"}
+))
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
-
+app.use(cookieParser());
 //database
 mongoose.connect('mongodb://localhost:27017/ecom', function (err) {
     if (err) {
@@ -62,6 +62,18 @@ app.put("/cities", )
 app.delete("/cities/:cityId", )
 */
 
+const JWT_SECRET = "skdvosakncwnefienoienv";
+const verifyToken = (token)=>{
+    try {
+        const verify = jwt.verify(token,JWT_SECRET);
+        if(verify.type==='user'){return true;}
+        else{return false};
+    } catch (error) {
+        console.log(JSON.stringify(error),"error");
+        return false;
+    }
+}
+
 //role
 app.post("/roles", roleController.addRole)
 app.get("/roles", roleController.getAllRoles)
@@ -79,6 +91,7 @@ app.post("/login", userController.login)
 //brand
 app.post("/brands", brandController.addBrand)
 app.get("/brands", brandController.getAllBrands)
+app.get("/brands/:id", brandController.getOneBrands)
 app.put("/brands", brandController.updateBrand)
 app.delete("/brands/:brandId", brandController.deleteBrands)
 
@@ -119,13 +132,23 @@ app.delete("/customerAddresses/:customerAddressId", customerAddress.deleteCustom
 
 //product
 app.post("/products", productController.addProduct)
-app.get("/products", productController.getAllProduct)
+app.get("/products", (req,res)=>{
+    const {token}=req.cookies;
+    if(verifyToken(token)){
+        return res.render(productController.addProduct);
+    }else{
+        res.redirect('/login')
+    }
+})
+    
+app.get("/products/:id", productController.getOneProduct)
 app.put("/products", productController.updateProduct)
 app.delete("/products/:productId", productController.deleteProduct)
 
 //vendor
 app.post("/vendordetails", vendorController.addvendorDetail)
 app.get("/vendordetails", vendorController.getAllvendorDetails)
+app.get("/vendordetails/:id", vendorController.getVendorDetails)
 app.delete("/vendordetails/:vendorId", vendorController.deletevendorDetail)
 app.put("/vendordetails", vendorController.updatevendorDetails)
 

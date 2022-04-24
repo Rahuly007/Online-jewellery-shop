@@ -1,7 +1,7 @@
 const bcrypt = require("bcrypt")
 const UserModel = require("../model/user-model")
-
-
+const JWT_SECRET = "skdvosakncwnefienoienv";
+const jwt = require('jsonwebtoken');    
 
 
 //add
@@ -10,7 +10,6 @@ module.exports.addUser = function (req, res) {
     let firstName = req.body.firstName
     let email = req.body.email
     let password = req.body.password
-    let role = req.body.role
 
     let encPassword = bcrypt.hashSync(password, 10)
 
@@ -18,7 +17,6 @@ module.exports.addUser = function (req, res) {
         firstName: firstName,
         email: email,
         password: encPassword,
-        role: role
     })
 
     user.save(function (err, sucess) {
@@ -67,7 +65,7 @@ module.exports.deleteUser = function (req, res) {
 //update
 
 module.exports.updateUser = function (req, res) {
-    let roleId = req.body.roleId
+    let roleId = req.body._id
     let firstName = req.body.firstName
 
     UserModel.updateOne({ _id: roleId }, { $set: { firstName: firstName } }, function (err, data) {
@@ -79,28 +77,32 @@ module.exports.updateUser = function (req, res) {
             res.json({ msg: "user updated......", status: 200, data: data })
         }
     })
-
 }
 
 
-module.exports.login = function (req, res) {
-    let param_email = req.body.email
-    let param_password = req.body.password
 
+//login
+module.exports.login = function (req, res) {
+    let email = req.body.email
+    let password = req.body.password
     let isCorrect = false
 
-    UserModel.findOne({ email: param_email }, function (err, data) {
+    UserModel.findOne({ email: email }, function (err, data) {
+        if(err){
+            console.log(err);
+        }
         if (data) {
-            let ans = bcrypt.compareSync(param_password, data.password)
+            let ans = bcrypt.compareSync(password, data.password)
             if (ans == true) {
                 isCorrect = true
             }
         }
 
         if (isCorrect == false) {
-            res.json({ msg: "invalid credentials", status: -1, data: req.body })
+            res.json({ msg: "Invalid credentials pls check your email and password", status: -1, data: req.body })
         } else {
-            res.json({ msg: "login sucessfull", status: 200, data: data })
+            res.json({ msg: "login sucessfull", status: 200, data: email })
         }
-    })
+    })    
 }
+

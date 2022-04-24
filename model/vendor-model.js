@@ -21,9 +21,9 @@ const vendorSchema = new mongoose.Schema({
         type: Number,
         require: true
     },
-    user: {
+    role: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: "user"
+        ref: "role"
     },
     state: {
         type: mongoose.Schema.Types.ObjectId,

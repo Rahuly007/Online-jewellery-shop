@@ -6,7 +6,7 @@ const ProductModel = require("../model/product-model")
 module.exports.addProduct = function (req, res) {
     let ProductName = req.body.ProductName
     let category = req.body.categoryId
-    let subCategory = req.body.subCategoryId
+    // let subCategory = req.body.subCategoryId
     let brand = req.body.brandId
     let basePrice = req.body.basePrice
 
@@ -15,7 +15,7 @@ module.exports.addProduct = function (req, res) {
     let product = new ProductModel({
         ProductName: ProductName,
         category: category,
-        subCategory: subCategory,
+        // subCategory: subCategory,
         brand: brand,
         basePrice: basePrice
     })
@@ -36,7 +36,7 @@ module.exports.addProduct = function (req, res) {
 
 
 module.exports.getAllProduct = function (req, res) {
-    ProductModel.find().populate().exec(function (err, data) {
+    ProductModel.find().populate("category").populate("brand").exec(function (err, data) {
         if (err) {
             console.log(err);
             //sendMailtoDev(err)
@@ -48,7 +48,18 @@ module.exports.getAllProduct = function (req, res) {
 }
 
 
-//delete
+module.exports.getOneProduct = function (req, res) {
+    let id = req.params.id
+    ProductModel.findOne({ _id: id }).populate("category").populate("brand").exec(function (err, data) {
+        if (err) {
+            console.log(err);
+            //sendMailtoDev(err)
+            res.json({ msg: "error", status: -1, data: res.err })
+        } else {
+            res.json({ msg: "product retrived......", status: 200, data: data })
+        }
+    })
+}
 
 module.exports.deleteProduct = function (req, res) {
     let productId = req.params.productId
@@ -68,8 +79,11 @@ module.exports.deleteProduct = function (req, res) {
 module.exports.updateProduct = function (req, res) {
     let productId = req.body.productId
     let ProductName = req.body.ProductName
+    let category = req.body.category
+    let brand = req.body.brand
+    let basePrice = req.body.basePrice
 
-    ProductModel.updateOne({ _id: productId }, { $set: { ProductName: ProductName } }, function (err, data) {
+    ProductModel.updateOne({ _id: productId }, { $set: { ProductName: ProductName, category: category, brand: brand, basePrice: basePrice } }, function (err, data) {
         if (err) {
             console.log(err);
             //sendMailtoDev(err)

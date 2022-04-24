@@ -1,11 +1,11 @@
 const OrderController = require('../model/order-model');
 
-module.exports.addOrder = function (err, data) {
+module.exports.addOrder = function (req, res) {
 
     let user = req.body.user;
     let total = req.body.total;
     let status = req.body.status;
-    let address = req.body.address;
+    let address = req.body.customerAddress;
 
     let order = new OrderController({
         user: user,
@@ -16,7 +16,7 @@ module.exports.addOrder = function (err, data) {
 
     order.save(function (err, success) {
         if (err) {
-            // console.log(err)
+            console.log(err)
             res.json({ msg: "Something went wrong", status: -1, data: req.body })
         }
         else {

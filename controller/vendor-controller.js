@@ -8,7 +8,7 @@ module.exports.addvendorDetail = function (req, res) {
     let email = req.body.email
     let contactNumber = req.body.contactNumber
     let pincode = req.body.pincode
-    let user = req.body.user
+    let role = req.body.role
     let state = req.body.state
     let city = req.body.city
 
@@ -19,7 +19,7 @@ module.exports.addvendorDetail = function (req, res) {
         email: email,
         contactNumber: contactNumber,
         pincode: pincode,
-        user: user,
+        role: role,
         state: state,
         city: city
     })
@@ -40,7 +40,20 @@ module.exports.addvendorDetail = function (req, res) {
 
 module.exports.getAllvendorDetails = function (req, res) {
 
-    vendorModel.find().populate("user").populate("state").populate("city").exec(function (err, data) {
+    vendorModel.find().populate("role").populate("state").populate("city").exec(function (err, data) {
+        if (err) {
+            res.json({ msg: "something went wrong", data: err, status: -1 })
+        }
+        else {
+            res.json({ msg: "vendor show ", data: data, status: 200 })
+        }
+    })
+}
+
+
+module.exports.getVendorDetails = function (req, res) {
+    let id = req.params.id
+    vendorModel.findOne({ _id: id }).populate("role").populate("state").populate("city").exec(function (err, data) {
         if (err) {
             res.json({ msg: "something went wrong", data: err, status: -1 })
         }
@@ -74,12 +87,12 @@ module.exports.updatevendorDetails = function (req, res) {
     let address = req.body.address
     let email = req.body.email
     let pincode = req.body.pincode
-    let user = req.body.user
+    let role = req.body.role
     let state = req.body.state
     let city = req.body.city
 
 
-    vendorModel.updateOne({ _id: vendorId }, { $set: { vendorName: vendorName, contactNumber: contactNumber, address: address, email: email, pincode: pincode, user: user, state: state, city: city } }, function (err, data) {
+    vendorModel.updateOne({ _id: vendorId }, { $set: { vendorName: vendorName, contactNumber: contactNumber, address: address, email: email, pincode: pincode, role: role, state: state, city: city } }, function (err, data) {
         if (err) {
             res.json({ msg: "Something went wrong!!!", status: -1, data: err })
         } else {
